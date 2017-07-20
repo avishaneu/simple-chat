@@ -1,0 +1,24 @@
+.box button,
+.box button:visited,
+.box button:focus {
+    background-color: darkseagreen;
+}
+
+.box button:hover,
+.box button:active {
+    background-color: grey !important;
+}
+
+#leave{
+    background-color: indianred;
+}
+
+#chatbox {
+    margin-top: 48px;
+    margin-bottom: 20px;
+}
+
+#history {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
