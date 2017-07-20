@@ -5,6 +5,21 @@
     <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="container"></div>
+<div class="container">
+    <div id="chatbox">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="message" placeholder="enter your message...">
+                    <span class="input-group-btn">
+                       <button class="btn btn-default" type="button" id="send">Send</button>
+                       <button class="btn btn-default" type="button" id="leave">Leave</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="history"></div>
+    </div>
+</div>
 </body>
 </html>
