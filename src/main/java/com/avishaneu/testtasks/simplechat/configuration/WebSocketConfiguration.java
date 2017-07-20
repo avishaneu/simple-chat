@@ -6,17 +6,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.session.web.socket.config.annotation.AbstractSessionWebSocketMessageBrokerConfigurer;
+import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 
 /**
  * Created by tkalnitskaya on 20.07.2017.
  */
+
 @Configuration
 @EnableScheduling
 @EnableWebSocketMessageBroker
-public class WebSocketConfiguration extends AbstractSessionWebSocketMessageBrokerConfigurer {
+public class WebSocketConfiguration extends AbstractWebSocketMessageBrokerConfigurer {
 
     private static final Logger log = LoggerFactory.getLogger(WebSocketConfiguration.class);
 
@@ -24,7 +25,7 @@ public class WebSocketConfiguration extends AbstractSessionWebSocketMessageBroke
     private String WEBSOCKET_ENDPOINT;
 
     @Override
-    public void configureStompEndpoints(StompEndpointRegistry registry) {
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
         log.info("Configuring stomp endpoint: " + WEBSOCKET_ENDPOINT);
         registry.addEndpoint(WEBSOCKET_ENDPOINT)
                 .setAllowedOrigins("*")
