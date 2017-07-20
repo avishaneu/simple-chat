@@ -85,6 +85,7 @@ $(function () {
     });
 
     $('#leave').click(function () {
+        stompClient.disconnect();
         window.location.href = "../leave";
     });
 });
