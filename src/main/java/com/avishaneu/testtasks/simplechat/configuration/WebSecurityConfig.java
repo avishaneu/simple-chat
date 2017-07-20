@@ -31,6 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.defaultSuccessUrl("/index.html")
 				.permitAll()
 				.and()
+			.logout().logoutUrl("/leave").logoutSuccessUrl("/").and()
 			.authorizeRequests()
 				.antMatchers("/assets/**", "/webjars/**", "/join.html").permitAll()
 				.anyRequest().authenticated();
