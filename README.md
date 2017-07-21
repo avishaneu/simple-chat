@@ -6,7 +6,7 @@ The project is build with maven, so please build it first:
 
 then navigate to the target direcory and execute:
 
-java -jar simple-chat-1.0.0.jar --server.port=[PORT]
+         java -jar simple-chat-1.0.0.jar --server.port=[PORT]
 
 change [PORT] on any valid available http port.
 
