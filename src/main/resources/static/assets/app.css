@@ -1,0 +1,45 @@
+.box button,
+.box button:visited,
+.box button:focus {
+    background-color: darkseagreen;
+}
+
+.box button:hover,
+.box button:active {
+    background-color: grey !important;
+}
+
+#leave{
+    background-color: indianred;
+}
+
+#chatbox {
+    margin-top: 48px;
+    margin-bottom: 20px;
+}
+
+#history {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#chatbox .message {
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(1, 1, 1, 0.7);
+}
+
+#chatbox .incoming .message {
+    background-color: burlywood;
+}
+
+#chatbox .outgoing .message {
+    background-color: bisque;
+}
+
+#error-message {
+    margin-top: 10px;
+}
