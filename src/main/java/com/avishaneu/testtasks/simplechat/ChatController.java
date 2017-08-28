@@ -3,6 +3,7 @@ package com.avishaneu.testtasks.simplechat;
 import com.avishaneu.testtasks.simplechat.model.Message;
 import com.avishaneu.testtasks.simplechat.model.UserMessage;
 import com.avishaneu.testtasks.simplechat.service.AuthenticationService;
+import com.avishaneu.testtasks.simplechat.service.MessagePersistenceService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
@@ -10,6 +11,8 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
+
+import java.util.List;
 
 
 /**
@@ -22,10 +25,14 @@ public class ChatController {
     @Autowired
     AuthenticationService authService;
 
+    @Autowired
+    MessagePersistenceService messagePersistenceService;
+
     @MessageMapping("/sendMessage")
     @SendTo("/topic/chat")
     public UserMessage sendMessage(UserMessage userMessage) {
         log.debug("Received message: " + userMessage.getContent() + " from user: " + userMessage.getSender());
+        messagePersistenceService.addMessage(userMessage);
         return userMessage;
     }
 
@@ -47,5 +54,11 @@ public class ChatController {
     public String handleException(Exception exception) {
         log.error("Handling exception: ", exception);
         return exception.getMessage();
+    }
+
+    @MessageMapping("/getHistory")
+    @SendToUser(destinations = "/topic/chat", broadcast = false)
+    public List<UserMessage> getMessageHistory() {
+        return messagePersistenceService.getMessages();
     }
 }

@@ -23,6 +23,10 @@ public class UserMessage extends Message {
         this.sender = sender;
     }
 
+    public UserMessage copy(){
+        return new UserMessage(getContent(), sender);
+    }
+
 
     @Override
     public boolean equals(Object o) {
