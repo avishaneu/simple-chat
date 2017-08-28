@@ -40,6 +40,11 @@
     background-color: bisque;
 }
 
+#chatbox .system .message {
+    background-color: indianred;
+    text-align: center;
+}
+
 #error-message {
     margin-top: 10px;
 }

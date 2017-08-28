@@ -1,6 +1,7 @@
 package com.avishaneu.testtasks.simplechat;
 
 import com.avishaneu.testtasks.simplechat.model.Message;
+import com.avishaneu.testtasks.simplechat.model.UserMessage;
 import org.slf4j.LoggerFactory;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -18,9 +19,21 @@ public class ChatController {
 
     @MessageMapping("/sendMessage")
     @SendTo("/topic/chat")
-    public Message sendMessage(Message message) {
-        log.debug("Received message: " + message.getContent() + " from user: " + message.getSender());
-        return message;
+    public UserMessage sendMessage(UserMessage userMessage) {
+        log.debug("Received message: " + userMessage.getContent() + " from user: " + userMessage.getSender());
+        return userMessage;
+    }
+
+    @MessageMapping("/leave")
+    @SendTo("/topic/system")
+    public Message leave(String user) {
+        return new Message("User " + user + " left the chat");
+    }
+
+    @MessageMapping("/join")
+    @SendTo("/topic/system")
+    public Message join(String user) {
+        return new Message("User " + user + " joined the chat");
     }
 
     @MessageExceptionHandler
