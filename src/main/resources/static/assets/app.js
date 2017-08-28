@@ -22,6 +22,10 @@ function onSuccessfulConnect() {
         showErrorMessage(unwrapMessage(wrappedMessage));
     });
 
+    stompClient.subscribe('/user/topic/chat', function (wrappedMessages) {
+        showMessageHistory(wrappedMessages);
+    });
+
     stompClient.subscribe('/topic/chat', function (wrappedMessage) {
         showMessage(unwrapMessage(wrappedMessage));
     });
@@ -30,7 +34,10 @@ function onSuccessfulConnect() {
         showSystemMessage(unwrapMessage(wrappedMessage));
     });
 
+    sendMessageToWS('/app/getHistory', null);
     sendMessageToWS('/app/join', user);
+
+
 }
 
 function showErrorMessage(errorMessage) {
@@ -64,7 +71,6 @@ function showSystemMessage(message) {
     var messageDiv = '<div class = "message"><strong>' + message.content + '</strong>';
     $('#history').prepend('<div class="row system"><div class="col-xs-6 col-md-offset-3 col-xs-offset-1">'
         + messageDiv + '</div></div>');
-  //  $('#history .row:first').css('margin-bottom', '10px');
 }
 
 function showMessage(message) {
@@ -81,6 +87,10 @@ function showMessage(message) {
             messageDiv + '</div></div>');
     }
     if (appendMargin) $('#history .row:first').css('margin-bottom', '10px');
+}
+
+function showMessageHistory(messages){
+    $(unwrapMessage(messages)).each(function( index, value ) {showMessage(value)});
 }
 
 
