@@ -2,7 +2,9 @@ package com.avishaneu.testtasks.simplechat;
 
 import com.avishaneu.testtasks.simplechat.model.Message;
 import com.avishaneu.testtasks.simplechat.model.UserMessage;
+import com.avishaneu.testtasks.simplechat.service.AuthenticationService;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -17,6 +19,9 @@ import org.springframework.stereotype.Controller;
 public class ChatController {
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(ChatController.class);
 
+    @Autowired
+    AuthenticationService authService;
+
     @MessageMapping("/sendMessage")
     @SendTo("/topic/chat")
     public UserMessage sendMessage(UserMessage userMessage) {
@@ -27,6 +32,7 @@ public class ChatController {
     @MessageMapping("/leave")
     @SendTo("/topic/system")
     public Message leave(String user) {
+        authService.userLogOut(user);
         return new Message("User " + user + " left the chat");
     }
 

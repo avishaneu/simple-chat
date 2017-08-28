@@ -1,5 +1,6 @@
 package com.avishaneu.testtasks.simplechat.configuration;
 
+import com.avishaneu.testtasks.simplechat.service.AuthenticationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ import org.springframework.security.core.AuthenticationException;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final Logger log = LoggerFactory.getLogger(WebSecurityConfig.class);
+
+	@Autowired
+	AuthenticationService authService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -48,8 +52,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			@Override
 			public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 				UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
-
-				return new UsernamePasswordAuthenticationToken(token.getName(), token.getCredentials(), null);
+				String username = authService.authenticateUser(token.getName());
+				return new UsernamePasswordAuthenticationToken(username, token.getCredentials(), null);
 			}
 		});
 	}
